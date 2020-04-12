@@ -28,3 +28,4 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function()
     Route::resource('categories', 'CategoryController');
     Route::resource('products', 'ProductController');
 });
+Route::get('/san-pham/{slug}', 'ProductController@display')->name('show_product');

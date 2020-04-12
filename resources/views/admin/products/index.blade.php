@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.theme.default')
 
 @section('content')
 <div class="row">
@@ -9,7 +9,7 @@
       <i class="fa fa-plus" aria-hidden="true"></i> Add New Products
       </a>
 
-      {!! Form::open(['method' => 'GET', 'url' => '/admin/products', 'class' => 'form-inline my-2 my-lg-0 float-right', 'role' => 'search'])  !!}
+      {!! Form::open(['method' => 'POST', 'url' => '/admin/products', 'class' => 'form-inline my-2 my-lg-0 float-right', 'role' => 'search'])  !!}
       <div class="input-group">
        <input type="text" class="form-control" name="search" placeholder="Search..." value="{{ request('search') }}">
         <span class="input-group-append">
@@ -37,7 +37,7 @@
             <td>{{$item->product_price}}</td>
             <td><img src="{{asset('Upload/Products/'.$item->product_image) }}" width="100"/></td>
             <td>{{$item->categories->cate_name}}</td>
-            <td><a href=" {{ url('/admin/products' . $item->id . '/edit') }}" title="Edit Page"><button class="btn btn-info btn-sm">Edit</buttom></a>
+            <td><a href=" {{ url('/admin/products/' . $item->id . '/edit') }}" title="Edit Page"><button class="btn btn-info btn-sm">Edit</buttom></a>
             {!! Form::open([
                  'method' => 'DELETE',
                  'url' => ['/admin/products',  $item->id],
@@ -46,7 +46,7 @@
             {!! Form::button('Delete', array(
                  'type' => 'submit',
                  'class' => 'btn btn-danger btn-sm',
-                 'title' => 'Delete product',
+                 'title' => 'Delete Product',
                  'onclick'=>'return confirm("Confirm delete?")' 
                  ))  !!} 
              {!! Form::close()  !!} 

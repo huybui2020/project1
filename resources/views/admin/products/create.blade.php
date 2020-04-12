@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.theme.default')
 
 @section('content')
 <style>
@@ -17,8 +17,8 @@ li{list-style-type: none}
         </ul>
       </div>
     @endif
-      {!! Form::open(['url' => route('products.store'), 'class' => 'form-horizontal clearfix', 'files' => true]) !!}
-      @csrf
-      @include ('admin.products.form', ['FormMode' => 'create'])
-    {!! Form::close() !!}
+    <form method="post" action="{{ route('products.store') }}">
+           @csrf
+            @include ('admin.products.form', ['FormMode' => 'create'])
+            </form>
 @endsection

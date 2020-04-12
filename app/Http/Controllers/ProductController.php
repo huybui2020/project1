@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Product;
 use App\Category;
 use Illuminate\Http\Request;
+use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
 
 class ProductController extends Controller
 {
@@ -18,10 +19,10 @@ class ProductController extends Controller
         $keyword = $request->get('search');
         if (!empty($keyword)){
             $products = Product::where('id', 'LIKE', "$keyword")
-            ->orWhere('product-code', 'LIKE', "$keyword")
-            ->orWhere('product-name', 'LIKE', "$keyword")
-            ->orWhere('product-teaser', 'LIKE', "$keyword")
-            ->orWhere('product-content', 'LIKE', "$keyword")
+            ->orWhere('product_code', 'LIKE', "$keyword")
+            ->orWhere('product_name', 'LIKE', "$keyword")
+            ->orWhere('product_teaser', 'LIKE', "$keyword")
+            ->orWhere('product_content', 'LIKE', "$keyword")
             ->latest()->paginate(10);
         }
         else{
@@ -54,7 +55,7 @@ class ProductController extends Controller
             'product_name' => 'required',
             'product_teaser' => 'required',
             'product_content' => 'required',
-            'product_code' => 'required|unique:products,product_code,'. $id.'ID',
+            'product_code' => 'required|unique:products,product_code,',
             'product_price' => 'required',
             'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
@@ -66,7 +67,7 @@ class ProductController extends Controller
             $location = public_path('Upload/Products');
             $request->file('image')->move($location, $filename);
 
-            $requestData['admin/products'] = $filename;
+            $requestData['product_image'] = $filename;
         }
         Product::create($requestData);
         return redirect('admin/products')->with('flash-message', 'Product added!');
@@ -78,9 +79,16 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show($slug)
     {
-        //
+        $product = Product::findBySlugOrFail($slug);
+        return view('admin.products.show', compact('product'));
+    }
+    public function display($slug)
+    {
+        $product = Product::findBySlugOrFail($slug);
+        dd($product);
+        return view('admin.products.show', compact('product'));
     }
 
     /**
@@ -121,7 +129,7 @@ class ProductController extends Controller
             $location = public_path('Upload/Products');
             $request->file('image')->move($location, $filename);
 
-            $requestData['admin/products'] = $filename;
+            $requestData['product_image'] = $filename;
         }
         $product = Product::findOrFail($id);
         $product->update($requestData);

@@ -1,4 +1,4 @@
-@extends('layouts\app')
+@extends('admin.theme.default')
 
 @section('content')
 <div class="row">

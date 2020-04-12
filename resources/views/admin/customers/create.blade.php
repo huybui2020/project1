@@ -1,7 +1,7 @@
 
-@extends('base')
+@extends('admin.theme.default')
 
-@section('main')
+@section('content')
 <div class="row">
  <div class="col-sm-8 offset-sm-2">
     <h1 class="display-3">Add a customer</h1>

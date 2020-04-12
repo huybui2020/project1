@@ -1,10 +1,11 @@
-@extends('layouts\app')
+@extends('admin.theme.default')
 
 @section('content')
-<a style="margin: 19px;" href="{{ route('categories.create')}}" class="btn btn-primary">New Category</a>
+
 <div class="display-3">
     <h1>List of Category</h1>
   </div>
+  <a style="margin: 19px;" href="{{ route('categories.create')}}" class="btn btn-primary">New Category</a>
   <div class="row">      
   <table style="text-align:center" class="table table-bordered tbClone" cellspacing="0" cellpadding="0">
         <tr>

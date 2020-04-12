@@ -1,4 +1,4 @@
-@extends('layouts.admin') 
+@extends('admin.theme.default') 
 
     @section('content')
     <ol class="breadcrumb">
@@ -17,10 +17,10 @@
     {!! Form::model($product, [
           'method' => 'PATCH',
           'url' => ['/admin/products', $product->id],
-          'class' =>'f'
+          'class' =>'f',
           'files' => true
           ])  !!}
-     @include ('admin.products.form', ['formMode' => 'edit']) 
+     @include ('admin.products.form', ['FormMode' => 'edit']) 
      {!! Form::close()  !!}     
 
 @endsection

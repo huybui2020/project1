@@ -108,6 +108,6 @@ class CategoryController extends Controller
     {
         $cate = Category::findorFail($id);
         $cate->delete();
-        return redirect('/categories')->with('success', 'Category deleted!'); 
+        return redirect('/admin/categories')->with('success', 'Category deleted!'); 
     }
 }

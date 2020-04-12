@@ -1,7 +1,6 @@
+@extends('admin.theme.default')
 
-@extends('base')
-
-@section('main')
+@section('content')
 <div class="row">
 <div class="col-sm-12">
     <h1 class="display-3">List of Customers</h1>    
